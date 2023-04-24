@@ -54,17 +54,14 @@ app.get("/callback", async (req, res) => {
     });
 
     if (response.status === 200) {
-      const { access_token, token_type } = response.data;
-      try {
-        const data = await axios.get("https://api.spotify.com/v1/me", {
-          headers: {
-            Authorization: `${token_type as string} ${access_token as string}`,
-          },
-        });
-        res.send(data.data);
-      } catch (e) {
-        res.send(e);
-      }
+      const { access_token, refresh_token } = response.data;
+      res.redirect(
+        "http://localhost:5173?" +
+          querystring.stringify({
+            access_token,
+            refresh_token,
+          })
+      );
     }
   } catch (e) {
     res.send(e);
