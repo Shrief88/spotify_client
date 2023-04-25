@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getAccessToken, logout } from "./spotifiy";
+import { getAccessToken, logout } from "./auth";
 
 function App() {
   const [accessToken, setAccessToken] = useState<string | boolean>(false);
@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     setAccessToken(getAccessToken);
   }, []);
-  
+
   return (
     <>
       <div className="card">
