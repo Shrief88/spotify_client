@@ -10,22 +10,37 @@ const hasTokenExpired = () => {
   return millisecondElapsed / 1000 > Number(expires_in);
 };
 
-const refreashToken = async () => {
-  const refreash_token = localStorage.getItem("refreash_token");
-  const queryParams = querystring.stringify({
-    refreash_token: refreash_token,
-  });
-
-  try{
-    const data: SpotifyResponce = await axios(`/refresh_token?${queryParams}`);
-    localStorage.setItem("access_token", data.access_token);
-    localStorage.setItem("timestamp", Date.now() as unknown as string);
-    window.location.reload();
-  }catch(e){
-    console.log(e);
-  }
-
+export const logout = () => {
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  localStorage.removeItem("expires_in");
+  localStorage.removeItem("timestamp");
+  window.location.reload();
 };
+
+const refreshToken = async () => {
+  const refresh_token = localStorage.getItem("refresh_token");
+  if (!refreshToken) {
+    logout();
+  } else {
+    const queryParams = querystring.stringify({
+      refresh_token: refresh_token,
+    });
+
+    try {
+      const { data } : {data : SpotifyResponce} = await axios(
+        `/refresh_token?${queryParams}`
+      );
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("timestamp", Date.now() as unknown as string);
+      window.location.reload();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+};
+
+
 
 export const getAccessToken = (): string | boolean => {
   const queryString = window.location.search;
@@ -33,7 +48,7 @@ export const getAccessToken = (): string | boolean => {
   const hasError = urlParams.get("error");
 
   if (hasError || hasTokenExpired()) {
-    refreashToken();
+    refreshToken();
   }
 
   // if the user already loggind in before

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getAccessToken } from "./spotifiy";
+import { getAccessToken, logout } from "./spotifiy";
 
 function App() {
   const [accessToken, setAccessToken] = useState<string | boolean>(false);
@@ -8,11 +8,15 @@ function App() {
   useEffect(() => {
     setAccessToken(getAccessToken);
   }, []);
+  
   return (
     <>
       <div className="card">
         {accessToken ? (
-          <h1>logged in</h1>
+          <div>
+            <h1>logged in</h1>
+            <button onClick={() => logout()}>Logout</button>
+          </div>
         ) : (
           <a href="http://localhost:3000/login">login to spotifiy</a>
         )}
