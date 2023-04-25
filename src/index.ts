@@ -4,6 +4,7 @@ import querystring from "querystring";
 import dotenv from "dotenv";
 import axios from "axios";
 import generateRandomString from "./utili";
+import { type SpotifyResponce } from "../shared/interfaces";
 
 dotenv.config();
 const app = express();
@@ -20,17 +21,14 @@ app.get("/login", (req, res) => {
   const state = generateRandomString(16);
   const scope = "user-read-private user-read-email";
   res.cookie(stateKey, state);
-
-  res.redirect(
-    "https://accounts.spotify.com/authorize?" +
-      querystring.stringify({
-        response_type: "code",
-        client_id: CLIENT_ID,
-        scope,
-        redirect_uri,
-        state,
-      })
-  );
+  const queryParms = querystring.stringify({
+    response_type: "code",
+    client_id: CLIENT_ID,
+    scope,
+    redirect_uri,
+    state,
+  });
+  res.redirect(`https://accounts.spotify.com/authorize?${queryParms}`);
 });
 
 app.get("/callback", async (req, res) => {
@@ -54,14 +52,14 @@ app.get("/callback", async (req, res) => {
     });
 
     if (response.status === 200) {
-      const { access_token, refresh_token } = response.data;
-      res.redirect(
-        "http://localhost:5173?" +
-          querystring.stringify({
-            access_token,
-            refresh_token,
-          })
-      );
+      const data: SpotifyResponce = response.data;
+      const { access_token, refresh_token, expires_in } = data;
+      const queryParms = querystring.stringify({
+        access_token,
+        refresh_token,
+        expires_in,
+      });
+      res.redirect(`http://localhost:5173?${queryParms}`);
     }
   } catch (e) {
     res.send(e);

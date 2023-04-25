@@ -1,19 +1,27 @@
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import { getAccessToken } from "./spotifiy";
 
 function App() {
+  const [accessToken, setAccessToken] = useState<string | boolean>(false);
+
+  useEffect(() => {
+    setAccessToken(getAccessToken);
+  }, []);
   return (
     <>
       <div className="card">
-        <a href="http://localhost:3000/login">login to spotifiy</a>
+        {accessToken ? (
+          <h1>logged in</h1>
+        ) : (
+          <a href="http://localhost:3000/login">login to spotifiy</a>
+        )}
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
