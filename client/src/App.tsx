@@ -1,13 +1,25 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getAccessToken, logout } from "./auth";
+import { accessToken, logout } from "./auth";
+import { getCurrentUser } from "./data";
 
 function App() {
-  const [accessToken, setAccessToken] = useState<string | boolean>(false);
+  const [token, setToken] = useState<string | boolean>(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    setAccessToken(getAccessToken);
+    setToken(accessToken);
+    const fetchData = async () => {
+      try {
+        const { data } = await getCurrentUser();
+        setCurrentUser(data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    if (accessToken) fetchData();
   }, []);
+  console.log(currentUser);
 
   return (
     <>

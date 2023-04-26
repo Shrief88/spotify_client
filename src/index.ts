@@ -5,9 +5,11 @@ import dotenv from "dotenv";
 import axios from "axios";
 import generateRandomString from "./utili";
 import { type SpotifyResponce } from "../shared/interfaces";
+// import cors from "cors";
 
 dotenv.config();
 const app = express();
+// app.use(cors);
 const port = 3000;
 const redirect_uri = "http://localhost:3000/callback";
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
@@ -83,7 +85,7 @@ app.get("/refresh_token", async (req, res): Promise<void> => {
         ).toString("base64")}`,
       },
     });
-    res.send(response);
+    res.send(response.data);
   } catch (error) {
     res.send(error);
   }

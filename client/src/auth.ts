@@ -1,6 +1,5 @@
 import { type SpotifyResponce } from "../../shared/interfaces";
 import axios from "axios";
-import querystring from "querystring";
 
 const hasTokenExpired = () => {
   const timestamp = localStorage.getItem("timestamp");
@@ -9,7 +8,6 @@ const hasTokenExpired = () => {
 
   return millisecondElapsed / 1000 > Number(expires_in);
 };
-
 export const logout = () => {
   localStorage.removeItem("access_token");
   localStorage.removeItem("refresh_token");
@@ -20,40 +18,35 @@ export const logout = () => {
 
 const refreshToken = async () => {
   const refresh_token = localStorage.getItem("refresh_token");
-  if (!refreshToken) {
+  if (!refresh_token) {
     logout();
   } else {
-    const queryParams = querystring.stringify({
-      refresh_token: refresh_token,
-    });
-
     try {
-      const { data } : {data : SpotifyResponce} = await axios(
-        `/refresh_token?${queryParams}`
+      const { data } : {data : SpotifyResponce} = await axios.get(
+        `api/refresh_token?refresh_token=${refresh_token}`
       );
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("timestamp", Date.now() as unknown as string);
-      window.location.reload();
     } catch (e) {
       console.log(e);
     }
   }
 };
 
-
-
-export const getAccessToken = (): string | boolean => {
+const getAccessToken = (): string | boolean => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const hasError = urlParams.get("error");
 
-  if (hasError || hasTokenExpired()) {
+  const access_token = localStorage.getItem("access_token");
+  if ((hasError || hasTokenExpired() || access_token === "undefined") && access_token) {
     refreshToken();
   }
 
   // if the user already loggind in before
-  const access_token = localStorage.getItem("access_token");
-  if (access_token) {
+
+  if (access_token && access_token !== "undefined") {
+    window.history.replaceState(null, "", window.location.pathname);
     return access_token;
   }
 
@@ -72,7 +65,12 @@ export const getAccessToken = (): string | boolean => {
       );
     }
     localStorage.setItem("timestamp", Date.now() as unknown as string);
+    window.history.replaceState(null, "", window.location.pathname);
+    return queryParams.access_token;
   }
 
+  
   return false;
 };
+
+export const accessToken = getAccessToken();
