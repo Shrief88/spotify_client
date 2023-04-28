@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import "./App.css";
-import { accessToken, logout } from "./auth";
-import { getCurrentUser } from "./data";
+import { accessToken, logout } from "./data/auth";
+import { getCurrentUser } from "./data/data";
 
 interface User {
   display_name: string;
@@ -22,11 +21,11 @@ function App() {
     const fetchData = async () => {
       try {
         const { data } = await getCurrentUser();
-        const tmpUser : User = {
-          display_name : data.display_name,
-          followers : data.followers.total,
-          imageUrl : data.images[0].url,
-        }
+        const tmpUser: User = {
+          display_name: data.display_name,
+          followers: data.followers.total,
+          imageUrl: data.images[0].url,
+        };
         setCurrentUser(tmpUser);
       } catch (e) {
         console.error(e);
@@ -47,7 +46,7 @@ function App() {
             <button onClick={() => logout()}>Logout</button>
           </div>
         ) : (
-          <a href="http://localhost:3000/login">login to spotifiy</a>
+          <a href="http://localhost:3000/login">login to spotify</a>
         )}
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR

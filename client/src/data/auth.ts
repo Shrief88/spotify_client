@@ -1,4 +1,4 @@
-import { type SpotifyResponce } from "../../shared/interfaces";
+import { type SpotifyResponce } from "../../../shared/interfaces";
 import axios from "axios";
 
 const hasTokenExpired = () => {
