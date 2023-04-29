@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { accessToken, logout } from "./data/auth";
 import { getCurrentUser } from "./data/data";
+import LoginButton from "./components/loginButton.tsx"
 
 interface User {
   display_name: string;
@@ -35,10 +36,10 @@ function App() {
   }, []);
 
   return (
-    <>
-      <div className="card">
+    <div className="m-0 p-0 w-full h-full">
         {token ? (
-          <div>
+          <div className="flex-col justify-center">
+            <p className="text-3xl">gg</p>
             <h1>logged in</h1>
             <h1>{currentUser.display_name}</h1>
             <h1>{currentUser.followers}</h1>
@@ -46,13 +47,11 @@ function App() {
             <button onClick={() => logout()}>Logout</button>
           </div>
         ) : (
-          <a href="http://localhost:3000/login">login to spotify</a>
+          <div className="flex-col items-center justify-center">
+             <LoginButton title="Login to spotify" url="http://localhost:3000/login"></LoginButton>
+          </div>
         )}
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-    </>
+    </div>
   );
 }
 
