@@ -11,3 +11,5 @@ const axiosClient = axios.create({
 });
 
 export const getCurrentUser = () => axiosClient.get('/me');
+
+export const getUserPlaylist = () => axiosClient.get('/me/playlists')
