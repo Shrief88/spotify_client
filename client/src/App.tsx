@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { accessToken } from "./data/auth";
-import { getCurrentUser, getUserPlaylist } from "./data/data";
+import {
+  getCurrentUser,
+  getUserPlaylist,
+  getFollowingArtist,
+} from "./data/data";
 import LoginButton from "./components/LoginButton.tsx";
 import Profile from "./components/Profile.tsx";
 import Nav from "./components/Nav.tsx";
@@ -10,6 +14,7 @@ interface User {
   followers: number;
   imageUrl: string;
   playlist: number;
+  following: number;
 }
 
 function App() {
@@ -19,21 +24,23 @@ function App() {
     followers: 0,
     imageUrl: "",
     playlist: 0,
+    following: 0,
   });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const tmp = await getUserPlaylist();
+        const followingArtist = await getFollowingArtist();
         const { data } = await getCurrentUser();
         const tmpUser: User = {
           display_name: data.display_name,
           followers: data.followers.total,
           imageUrl: data.images[0].url,
           playlist: tmp.data.items.length,
+          following: followingArtist.data.artists.total,
         };
         setCurrentUser(tmpUser);
-        console.log(data);
       } catch (e) {
         console.error(e);
       }
@@ -50,7 +57,8 @@ function App() {
             name={currentUser.display_name}
             numberOfFollowers={currentUser.followers}
             numberOfPlaylists={currentUser.playlist}
-            imageUrl={currentUser.imageUrl}></Profile>
+            imageUrl={currentUser.imageUrl}
+            numberOfFollowing={currentUser.following}></Profile>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center h-full gap-3">

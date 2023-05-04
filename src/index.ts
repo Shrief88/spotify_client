@@ -21,7 +21,8 @@ app.get("/", (req, res) => {
 
 app.get("/login", (req, res) => {
   const state = generateRandomString(16);
-  const scope = "user-read-private user-read-email";
+  const scope =
+    "user-read-private user-read-email user-follow-read playlist-read-private";
   res.cookie(stateKey, state);
   const queryParms = querystring.stringify({
     response_type: "code",

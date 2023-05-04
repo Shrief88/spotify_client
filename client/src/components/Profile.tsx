@@ -4,13 +4,13 @@ interface ProfileProps {
   name: string;
   imageUrl: string;
   numberOfFollowers: number;
-  // numberOfFollowing : number;
+  numberOfFollowing: number;
   numberOfPlaylists: number;
 }
 
 const Profile = (props: ProfileProps) => {
   return (
-    <div className="bg-darkGrey p-32 flex-1" >
+    <div className="bg-darkGrey p-32 flex-1">
       <div className="flex flex-col items-center gap-4">
         <div className="avatar">
           <div className="w-36 rounded-full">
@@ -24,11 +24,19 @@ const Profile = (props: ProfileProps) => {
             <p className="text-lightGrey text-xs uppercase">followes</p>
           </div>
           <div className="flex flex-col items-center">
+            <p className="text-green">{props.numberOfFollowing}</p>
+            <p className="text-lightGrey text-xs uppercase">following</p>
+          </div>
+          <div className="flex flex-col items-center">
             <p className="text-green">{props.numberOfPlaylists}</p>
             <p className="text-lightGrey text-xs uppercase">playlists</p>
           </div>
         </div>
-        <button className="btn-sm border px-6 rounded-full hover:bg-white hover:text-black" onClick={logout}>Logout</button>
+        <button
+          className="btn-sm border px-6 rounded-full hover:bg-white hover:text-black"
+          onClick={logout}>
+          Logout
+        </button>
       </div>
     </div>
   );
