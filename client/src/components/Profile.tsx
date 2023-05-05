@@ -10,7 +10,7 @@ interface ProfileProps {
 
 const Profile = (props: ProfileProps) => {
   return (
-    <div className="bg-darkGrey p-32 flex-1">
+    <div className="p-32 flex-1">
       <div className="flex flex-col items-center gap-4">
         <div className="avatar">
           <div className="w-36 rounded-full">
@@ -21,7 +21,7 @@ const Profile = (props: ProfileProps) => {
         <div className="flex gap-6">
           <div className="flex flex-col items-center">
             <p className="text-green">{props.numberOfFollowers}</p>
-            <p className="text-lightGrey text-xs uppercase">followes</p>
+            <p className="text-lightGrey text-xs uppercase">followers</p>
           </div>
           <div className="flex flex-col items-center">
             <p className="text-green">{props.numberOfFollowing}</p>

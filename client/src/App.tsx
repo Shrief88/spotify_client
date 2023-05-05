@@ -8,6 +8,7 @@ import {
 import LoginButton from "./components/LoginButton.tsx";
 import Profile from "./components/Profile.tsx";
 import Nav from "./components/Nav.tsx";
+import Loader from "./components/Loader.tsx";
 
 interface User {
   display_name: string;
@@ -19,6 +20,7 @@ interface User {
 
 function App() {
   const token = accessToken;
+  const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<User>({
     display_name: "",
     followers: 0,
@@ -30,6 +32,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const tmp = await getUserPlaylist();
         const followingArtist = await getFollowingArtist();
         const { data } = await getCurrentUser();
@@ -41,6 +44,7 @@ function App() {
           following: followingArtist.data.artists.total,
         };
         setCurrentUser(tmpUser);
+        setIsLoading(false);
       } catch (e) {
         console.error(e);
       }
@@ -51,14 +55,18 @@ function App() {
   return (
     <div className="m-0 p-0 w-full h-full">
       {token ? (
-        <div className="flex h-full">
+        <div className="flex h-full bg-darkGrey">
           <Nav></Nav>
-          <Profile
-            name={currentUser.display_name}
-            numberOfFollowers={currentUser.followers}
-            numberOfPlaylists={currentUser.playlist}
-            imageUrl={currentUser.imageUrl}
-            numberOfFollowing={currentUser.following}></Profile>
+          {isLoading ? (
+            <Loader></Loader>
+          ) : (
+            <Profile
+              name={currentUser.display_name}
+              numberOfFollowers={currentUser.followers}
+              numberOfPlaylists={currentUser.playlist}
+              imageUrl={currentUser.imageUrl}
+              numberOfFollowing={currentUser.following}></Profile>
+          )}
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center h-full gap-3">
