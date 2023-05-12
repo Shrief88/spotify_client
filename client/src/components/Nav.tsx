@@ -1,19 +1,17 @@
-import { Person } from "@mui/icons-material"
-import MicIcon from '@mui/icons-material/Mic';
-import AudiotrackIcon from '@mui/icons-material/Audiotrack';
-import ReplayIcon from '@mui/icons-material/Replay';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import spotifyLogo from '../icons/Spotify_icon.png'
-import githubLogo from '../icons/github.png'
+import { Person } from "@mui/icons-material";
+import MicIcon from "@mui/icons-material/Mic";
+import AudiotrackIcon from "@mui/icons-material/Audiotrack";
+import ReplayIcon from "@mui/icons-material/Replay";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import spotifyLogo from "../icons/Spotify_icon.png";
+import githubLogo from "../icons/github.png";
 import MenuItem from "./MenuItem";
 
-
-
-const Nav = ()=> {
-  return(
-    <div className="flex flex-col justify-between py-8 items-center bg-navBlack">
+const Nav = () => {
+  return (
+    <div className="flex flex-col justify-between py-8 items-center bg-navBlack z-0 top-0 fixed h-full">
       <div>
-        <img src={spotifyLogo} className="w-12"/>
+        <img src={spotifyLogo} className="w-12" />
       </div>
       <ul className="flex gap-1 flex-col">
         <MenuItem icon={Person} desc="Profile"></MenuItem>
@@ -23,11 +21,12 @@ const Nav = ()=> {
         <MenuItem icon={PlaylistAddIcon} desc="Playlist"></MenuItem>
       </ul>
       <div>
-        <img src={githubLogo} className="w-12"/>
+        <a href="https://github.com/Shrief88/spotify_client">
+          <img src={githubLogo} className="w-12" />
+        </a>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
 export default Nav;

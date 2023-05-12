@@ -4,12 +4,6 @@ export default {
   theme: {
     extend: {
       keyframes: {
-        pump: {
-          "0% ,100%": { transform: "scale(1)" },
-          "10%": { transform: "scale(0.9)" },
-          "30%": { transform: "scale(1.1)" },
-          "50%": { transform: "scale(1.15)" },
-        },
         dance: {
           from: {
             height: "10px",
@@ -20,7 +14,6 @@ export default {
         },
       },
       animation: {
-        pump: "pump 300ms ease-out",
         dance: "dance 400ms ease-in-out infinite ",
       },
     },
