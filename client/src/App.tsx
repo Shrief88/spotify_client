@@ -5,13 +5,14 @@ import {
   getUserPlaylist,
   getFollowingArtist,
   getTopArtists,
+  getTopTracks,
 } from "./data/data";
 import LoginButton from "./components/LoginButton.tsx";
 import Profile from "./components/Profile.tsx";
 import Nav from "./components/Nav.tsx";
 import Loader from "./components/Loader.tsx";
-import { capitalize } from "./util/index.ts";
-import { User,Artist } from "./interfaces/index.ts";
+import { capitalize, formatTime } from "./util/index.ts";
+import { User, Artist, Track } from "./interfaces/index.ts";
 
 function App() {
   const token = accessToken;
@@ -23,7 +24,8 @@ function App() {
     playlists: 0,
     following: 0,
   });
-  const [topArtists,setTopArtists] = useState<Array<Artist>>([]);
+  const [topArtists, setTopArtists] = useState<Array<Artist>>([]);
+  const [topTracks, setTopTracks] = useState<Array<Track>>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +35,7 @@ function App() {
         const playlistData = (await getUserPlaylist()).data;
         const followingArtistData = (await getFollowingArtist()).data;
         const userData = (await getCurrentUser()).data;
+
         const tmpUser: User = {
           display_name: capitalize(userData.display_name),
           followers: userData.followers.total,
@@ -41,16 +44,30 @@ function App() {
           following: followingArtistData.artists.total,
         };
 
-
-        const artist = (await getTopArtists()).data.items;
-        const arr : Array<Artist> = []
-        for(let i = 0 ; i < artist.length ; i++){
-          arr.push({
-            name : artist[i].name,
-            imageUrl: artist[i].images[1].url,
-          })
+        const artistsData = (await getTopArtists()).data.items;
+        const artistsArray: Array<Artist> = [];
+        for (let i = 0; i < artistsData.length; i++) {
+          artistsArray.push({
+            name: artistsData[i].name,
+            imageUrl: artistsData[i].images[1].url,
+          });
         }
-        setTopArtists(arr);
+
+        const tracksData = (await getTopTracks()).data.items;
+        const tracksArray: Array<Track> = [];
+        for (let i = 0; i < tracksData.length; i++) {
+          tracksArray.push({
+            name: tracksData[i].name,
+            artistName: tracksData[i].artists[0].name,
+            albumName: tracksData[i].album.name,
+            duration: formatTime(tracksData[i].duration_ms),
+            imageUrl: tracksData[i].album.images[1].url,
+          });
+        }
+
+        
+        setTopTracks(tracksArray);
+        setTopArtists(artistsArray);
         setCurrentUser(tmpUser);
         setIsLoading(false);
       } catch (e) {
@@ -74,7 +91,8 @@ function App() {
               numberOfPlaylists={currentUser.playlists}
               imageUrl={currentUser.imageUrl}
               numberOfFollowing={currentUser.following}
-              topArtists={topArtists}></Profile>
+              topArtists={topArtists}
+              topTracks={topTracks}></Profile>
           )}
         </div>
       ) : (

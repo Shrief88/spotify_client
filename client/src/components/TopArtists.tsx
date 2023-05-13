@@ -9,7 +9,7 @@ interface TopArtistsProps {
 const TopArtists = (props: TopArtistsProps) => {
 
   const artists = props.artists.map((item) => (
-    <div className="flex items-center gap-5 pb-5">
+    <div key={item.name} className="flex items-center gap-5 pb-5">
       <div className="avatar">
         <div className="w-12 rounded-full">
           <img src={item.imageUrl} />

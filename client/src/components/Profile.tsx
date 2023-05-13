@@ -1,7 +1,8 @@
 import { logout } from "../data/auth";
 import MyButton from "./MyButton";
 import TopArtists from "./TopArtists";
-import { Artist } from "../interfaces";
+import TopTracks from "./TopTracks";
+import { Artist,Track } from "../interfaces";
 
 interface ProfileProps {
   name: string;
@@ -10,6 +11,7 @@ interface ProfileProps {
   numberOfFollowing: number;
   numberOfPlaylists: number;
   topArtists : Array<Artist>;
+  topTracks : Array<Track>;
 }
 
 const Profile = (props: ProfileProps) => {
@@ -41,7 +43,7 @@ const Profile = (props: ProfileProps) => {
 
       <div className="grid grid-cols-2 gap-20">
         <TopArtists title="Top Artists of All Time" artists={props.topArtists.slice(0,10)}></TopArtists>
-        <TopArtists title="Top Artists of All Time" artists={props.topArtists.slice(0,10)}></TopArtists>
+        <TopTracks title="Top Tracks of All Time" tracks={props.topTracks.slice(0,10)}></TopTracks>
       </div>
     </div>
   );

@@ -10,3 +10,11 @@ export interface User {
   playlists: number;
   following: number;
 }
+
+export interface Track{
+  name : string;
+  artistName : string;
+  albumName : string;
+  duration : string;
+  imageUrl : string;
+}

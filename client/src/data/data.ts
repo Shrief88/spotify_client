@@ -16,3 +16,5 @@ export const getUserPlaylist = () => axiosClient.get('/me/playlists')
 export const getFollowingArtist = () => axiosClient.get('/me/following?type=artist')
 
 export const getTopArtists = () => axiosClient.get('/me/top/artists?time_range=long_term')
+
+export const getTopTracks = () => axiosClient.get('/me/top/tracks?time_range=long_term')
