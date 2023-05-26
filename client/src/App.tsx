@@ -7,12 +7,14 @@ import {
   getTopArtists,
   getTopTracks,
 } from "./data/data";
-import LoginButton from "./components/LoginButton.tsx";
-import Profile from "./components/Profile.tsx";
+import Profile from "./pages/Profile.tsx";
+import Login from "./pages/Login.tsx";
+import Artists from "./pages/Artists.tsx";
 import Nav from "./components/Nav.tsx";
 import Loader from "./components/Loader.tsx";
 import { capitalize, formatTime } from "./util/index.ts";
 import { User, Artist, Track } from "./interfaces/index.ts";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const token = accessToken;
@@ -65,7 +67,6 @@ function App() {
           });
         }
 
-        
         setTopTracks(tracksArray);
         setTopArtists(artistsArray);
         setCurrentUser(tmpUser);
@@ -78,32 +79,42 @@ function App() {
   }, []);
 
   return (
-    <div className="m-0 p-0 w-full h-full bg-black">
-      {token ? (
-        <div className="flex h-full">
-          <Nav></Nav>
-          {isLoading ? (
-            <Loader></Loader>
-          ) : (
-            <Profile
-              name={currentUser.display_name}
-              numberOfFollowers={currentUser.followers}
-              numberOfPlaylists={currentUser.playlists}
-              imageUrl={currentUser.imageUrl}
-              numberOfFollowing={currentUser.following}
-              topArtists={topArtists}
-              topTracks={topTracks}></Profile>
-          )}
-        </div>
-      ) : (
-        <div className="flex flex-col justify-center items-center h-full gap-3">
-          <p className="text-2xl font-bold">Spotify Profile</p>
-          <LoginButton
-            title="Login to spotify"
-            url="http://localhost:3000/login"></LoginButton>
-        </div>
-      )}
-    </div>
+    <BrowserRouter>
+      <div className="m-0 p-0 w-full h-full flex">
+        {token ? (
+          <>
+            <Nav />
+            {isLoading ? (
+              <Loader></Loader>
+            ) : (
+              <div className="bg-black flex flex-col justify-center items-center">
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <Profile
+                        name={currentUser.display_name}
+                        numberOfFollowers={currentUser.followers}
+                        numberOfPlaylists={currentUser.playlists}
+                        imageUrl={currentUser.imageUrl}
+                        numberOfFollowing={currentUser.following}
+                        topArtists={topArtists}
+                        topTracks={topTracks}></Profile>
+                    }
+                  />
+                  <Route
+                    path="/artists"
+                    element={<Artists artists={topArtists} />}
+                  />
+                </Routes>
+              </div>
+            )}
+          </>
+        ) : (
+          <Login />
+        )}
+      </div>
+    </BrowserRouter>
   );
 }
 

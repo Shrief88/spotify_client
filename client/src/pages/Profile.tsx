@@ -1,7 +1,7 @@
 import { logout } from "../data/auth";
-import MyButton from "./MyButton";
-import TopArtists from "./TopArtists";
-import TopTracks from "./TopTracks";
+import MyButton from "../components/MyButton";
+import TopArtists from "../components/TopArtists";
+import TopTracks from "../components/TopTracks";
 import { Artist,Track } from "../interfaces";
 
 interface ProfileProps {
@@ -16,7 +16,7 @@ interface ProfileProps {
 
 const Profile = (props: ProfileProps) => {
   return (
-    <div className="p-32 flex flex-col flex-1 gap-16 px-96">
+    <div className="py-28 flex flex-col gap-16 px-96">
       <div className="flex flex-col items-center gap-4">
         <div className="avatar">
           <div className="w-36 rounded-full">

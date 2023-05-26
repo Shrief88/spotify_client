@@ -6,13 +6,14 @@ import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import spotifyLogo from "../icons/Spotify_icon.png";
 import githubLogo from "../icons/github.png";
 import MenuItem from "./MenuItem";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
-    <div className="flex flex-col justify-between py-8 items-center bg-navBlack z-0 top-0 fixed h-full">
-      <div>
+    <div className="flex flex-col justify-between py-8 items-center bg-navBlack left-0 top-0 sticky h-screen min-w-fit">
+      <Link to="/">
         <img src={spotifyLogo} className="w-12" />
-      </div>
+      </Link>
       <ul className="flex gap-1 flex-col">
         <MenuItem icon={Person} desc="Profile"></MenuItem>
         <MenuItem icon={MicIcon} desc="Top Artists"></MenuItem>
