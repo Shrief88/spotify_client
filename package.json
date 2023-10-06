@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint \"src/**/*.ts\" --fix",
-    "dev": "nodemon src/index.ts",
-    "build": "tsc"
+    "server": "nodemon src/index.ts",
+    "build": "tsc",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\" "
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,7 @@
     "@types/node": "^20.8.2",
     "@types/randomstring": "^1.1.9",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "concurrently": "^8.2.1",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard-with-typescript": "^39.1.0",
