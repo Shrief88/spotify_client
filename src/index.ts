@@ -1,28 +1,28 @@
-import express = require("express")
-import dotenv = require("dotenv")
-import * as queryString from "querystring"
-import randomstring = require("randomstring")
-import { Buffer } from "buffer"
-import axios from "axios"
+import express = require("express");
+import dotenv = require("dotenv");
+import * as queryString from "querystring";
+import randomstring = require("randomstring");
+import { Buffer } from "buffer";
+import axios from "axios";
 
-dotenv.config()
-const { PORT, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = process.env
+dotenv.config();
+const { PORT, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = process.env;
 
-const app = express()
+const app = express();
 
-const port = parseInt(PORT as string)
-const host = "localhost"
+const port = parseInt(PORT as string);
+const host = "localhost";
 
 app.get("/", (req, res) => {
-  res.send("testing....")
-})
+  res.send("testing....");
+});
 
 app.get("/login", (req, res) => {
-  const state = randomstring.generate(16)
-  const scope = "user-read-private user-read-email"
-  const stateKey = "spotify_auth_state"
+  const state = randomstring.generate(16);
+  const scope = "user-read-private user-read-email";
+  const stateKey = "spotify_auth_state";
 
-  res.cookie(stateKey, state)
+  res.cookie(stateKey, state);
 
   res.redirect(
     "http://accounts.spotify.com/authorize?" +
@@ -31,17 +31,17 @@ app.get("/login", (req, res) => {
         client_id: CLIENT_ID,
         scope,
         redirect_uri: REDIRECT_URI,
-        state
-      })
-  )
-})
+        state,
+      }),
+  );
+});
 
 app.get("/callback", async (req, res) => {
-  const code = (req.query.code as string) ?? null
-  const state = req.query.state ?? null
+  const code = (req.query.code as string) ?? null;
+  const state = req.query.state ?? null;
 
   if (state == null) {
-    res.redirect("/#" + queryString.stringify({ error: "state mismatch" }))
+    res.redirect("/#" + queryString.stringify({ error: "state mismatch" }));
   } else {
     try {
       const response = await axios({
@@ -50,64 +50,73 @@ app.get("/callback", async (req, res) => {
         data: queryString.stringify({
           grant_type: "authorization_code",
           code,
-          redirect_uri: REDIRECT_URI
+          redirect_uri: REDIRECT_URI,
         }),
         headers: {
-          "Content-type": 'application/x-www-form-urlencoded',
+          "Content-type": "application/x-www-form-urlencoded",
           Authorization:
             "Basic " +
-            Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64")
-        }
-      })
+            Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64"),
+        },
+      });
 
       if (response.status === 200) {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        const { access_token, refresh_token } = response.data
+        const { access_token, refresh_token, expires_in } = response.data;
         const queryParms = queryString.stringify({
           access_token,
-          refresh_token
-        })
+          refresh_token,
+          expires_in,
+        });
 
-        res.redirect(`http://localhost:5173/?${queryParms}`)
+        res.redirect(`http://localhost:5173/?${queryParms}`);
       } else {
         res.redirect(
           `/?${queryString.stringify({
-            error: "invalid token"
-          })}`
-        )
+            error: "invalid token",
+          })}`,
+        );
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
-})
+});
 
-// app.get('/refresh_token',async (req,res)=>{
-//   const refresh_token = req.query.refresh_token as string;
+app.get("/refresh_token", async (req, res) => {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const refresh_token = req.query.refresh_token as string;
 
-//   try{
-//     const response = await axios({
-//       method : 'post',
-//       url : 'https://accounts.spotify.com/api/token',
-//       data : queryString.stringify({
-//         grant_type : 'refresh_token',
-//         refresh_token : refresh_token
-//       }),
-//       headers:{
-//         'Content-type' : 'application/x-www-form-urlencoded',
-//         Authorization : 'Basic ' + (Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'))
-//       }
-//     })
+  try {
+    const response = await axios({
+      method: "post",
+      url: "https://accounts.spotify.com/api/token",
+      data: queryString.stringify({
+        grant_type: "refresh_token",
+        refresh_token,
+      }),
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " +
+          Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64"),
+      },
+    });
 
-//     if(response.status === 200){
-
-//     }
-//   }catch(err){
-//     console.log(err);
-//   }
-
-// })
+    if (response.status === 200) {
+      res.send(response);
+    } else {
+      res.redirect(
+        `/?${queryString.stringify({
+          error: "invalid token",
+        })}`,
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.listen(port, host, () => {
-  console.log(`Express app is listening on: http://${host}:${port}`)
-})
+  console.log(`Express app is listening on: http://${host}:${port}`);
+});
