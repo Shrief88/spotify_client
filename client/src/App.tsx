@@ -1,23 +1,26 @@
 import "./App.css";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
+import { getAccessToken } from "./spotify";
 
 function App() {
-  useEffect(() => {
-    const queryString = window.location.search;
-    const urlParms = new URLSearchParams(queryString);
-    const accessToken = urlParms.get('access_token');
-    const refreshToken = urlParms.get('refresh_token');
+  const [token , setToken] = useState<string|null|undefined>(null);
 
-    console.log(accessToken);
-    console.log(refreshToken);
+  useEffect(() => {
+    const accessToken = getAccessToken();
+    setToken(accessToken);
   },[])
 
-
+  
   return (
     <>
-      <a href="http://localhost:3000/login">
-        <button>login</button>
-      </a>
+      {!token ? (
+        <a href="http://localhost:3000/login">
+          <button>login</button>
+        </a>
+      ):(
+        <p>Logged in!</p>
+      )}
+      
     </>
   );
 }

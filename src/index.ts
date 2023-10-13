@@ -4,11 +4,13 @@ import * as queryString from "querystring";
 import randomstring = require("randomstring");
 import { Buffer } from "buffer";
 import axios from "axios";
+import cors = require("cors");
 
 dotenv.config();
 const { PORT, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = process.env;
 
 const app = express();
+app.use(cors());
 
 const port = parseInt(PORT as string);
 const host = "localhost";
@@ -102,9 +104,8 @@ app.get("/refresh_token", async (req, res) => {
           Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64"),
       },
     });
-
     if (response.status === 200) {
-      res.send(response);
+      res.send(response.data);
     } else {
       res.redirect(
         `/?${queryString.stringify({
