@@ -1,4 +1,4 @@
-import { getAccessToken } from "./auth";
+import { getAccessToken } from "../auth";
 import axios from "axios";
 
 const token = getAccessToken();
