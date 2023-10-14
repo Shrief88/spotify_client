@@ -71,8 +71,7 @@ export const getAccessToken = ()=>{
       localStorage.setItem(property,queryParams[property]);
     }
     localStorage.setItem('timestamp',String(Date.now()));
+    window.location.reload();
     return LOCALSTORAGE_VALUES.accessToken;
   }
 }
-
-
