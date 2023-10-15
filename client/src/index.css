@@ -2,8 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: CircularStd;
+  src: url(./../public/fonts/CircularStd-Bold.woff2);
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: CircularStd;
+  src: url(./../public/fonts/CircularStd-Black.woff2);
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: CircularStd;
+  src: url(./../public/fonts/CircularStd-Medium.woff2);
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: CircularStd;
+  src: url(./../public/fonts/CircularStd-Bold.woff2);
+  font-weight: bold;
+  font-style: normal;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: CircularStd, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

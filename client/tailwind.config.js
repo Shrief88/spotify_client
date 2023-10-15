@@ -1,10 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        CircularStd : ['CircularStd', 'sans-serif'],
+      }
+    },
+    colors: {
+      green: "#1DB954",
+      offGreen : "#2BDE6A",
+    }
   },
   plugins: [],
 }
