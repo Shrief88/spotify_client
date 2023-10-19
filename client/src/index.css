@@ -26,10 +26,19 @@
 
 @font-face {
   font-family: CircularStd;
+  src: url(./../public/fonts/CircularStd-Book.woff2);
+  font-weight: light;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: CircularStd;
   src: url(./../public/fonts/CircularStd-Bold.woff2);
   font-weight: bold;
   font-style: normal;
 }
+
+
 
 :root {
   font-family: CircularStd, system-ui, Avenir, Helvetica, Arial, sans-serif;
