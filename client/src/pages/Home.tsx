@@ -16,15 +16,9 @@ function Home() {
   }, []);
 
   return (
-    <>
-      {profile && (
-        <div>
-          <h1>{profile.display_name}</h1>
-          <h1>{profile.followers.total}</h1>
-          <img src={profile.images[1].url} alt="Avater" />
-        </div>
-      )}
-    </>
+    <div>
+      Hello World
+    </div>
   );
 }
 

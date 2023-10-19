@@ -13,6 +13,8 @@ export default {
     colors: {
       green: "#1DB954",
       offGreen : "#2BDE6A",
+      darkBlack : "#040306",
+      dark : "#181818"
     }
   },
   plugins: [],
