@@ -3,6 +3,8 @@ import { UserInfo } from "../interfaces";
 import { getCurrentUser } from "../data";
 import UserInfoItem from "../components/userInfoItem";
 import Loader from "../components/Loader";
+import Button from "../components/Button";
+import { logout } from "../auth";
 
 function Home() {
   const [profile, setProfile] = useState<null | UserInfo>(null);
@@ -30,7 +32,7 @@ function Home() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-7">
           <img
             src={profile?.images[1].url}
             width="150"
@@ -53,6 +55,7 @@ function Home() {
               number={profile?.followers.total as number}
             />
           </div>
+          <Button text="Logout" onClick={logout} />
         </div>
       )}
     </div>

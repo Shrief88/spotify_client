@@ -26,6 +26,7 @@ export default {
       darkBlack: "#040306",
       dark: "#181818",
       gray: "#9B9B9B",
+      white : "#FFFFFF",
     },
   },
   plugins: [require("tailwindcss-animation-delay")],

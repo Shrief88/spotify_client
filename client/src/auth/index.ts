@@ -48,6 +48,17 @@ const getNewToken = async () => {
   }
 };
 
+export const logout = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("expireTime");
+  localStorage.removeItem("timestamp");
+  const url = new URL(window.location.href);
+  url.search = ''; // Clear the search parameters
+  const newUrl = url.toString(); // Get the updated URL without parameters
+  window.history.replaceState({}, '', newUrl); // Replace the current URL without parameters
+  window.location.reload();
+};
 
 export const getAccessToken = ()=>{
   const queryString = window.location.search;
