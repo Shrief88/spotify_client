@@ -21,7 +21,8 @@ app.get("/", (req, res) => {
 
 app.get("/login", (req, res) => {
   const state = randomstring.generate(16);
-  const scope = "user-read-private user-read-email user-top-read";
+  const scope =
+    "user-read-private user-read-email user-top-read playlist-read-private user-follow-read";
   const stateKey = "spotify_auth_state";
 
   res.cookie(stateKey, state);

@@ -12,3 +12,7 @@ export const getCurrentUser = ()=> axios.get('/me');
 export const getUserTopArtists = ()=> axios.get('/me/top/artists?time_range=long_term');
 
 export const getUserTopTracks = ()=> axios.get('/me/top/tracks?time_range=long_term');
+
+export const getUserPlaylists = ()=> axios.get('/me/playlists?limit=50');
+
+export const getFollowingArtists = ()=> axios.get('/me/following?type=artist');

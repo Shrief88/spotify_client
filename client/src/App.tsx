@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { UserInfo, TopArtists, TopTracks } from "./interfaces";
+import { UserInfo, TopArtists, TopTracks,UserPlaylists} from "./interfaces";
 import { getAccessToken } from "./auth";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
-import { getCurrentUser, getUserTopArtists, getUserTopTracks } from "./data";
+import { getCurrentUser, getUserTopArtists, getUserTopTracks,getUserPlaylists, getFollowingArtists } from "./data";
 import Loader from "./components/Loader";
 
 function App() {
@@ -14,6 +14,8 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [topArtists, setTopArtists] = useState<TopArtists | null>(null);
   const [topTracks, setTopTracks] = useState<TopTracks | null>(null);
+  const [userPlaylists, setUserPlaylists] = useState<UserPlaylists | null>(null);
+  const [followingNumber, setFollowingNumber] = useState<number | null>(null);
 
   useEffect(() => {
     const accessToken = getAccessToken();
@@ -23,11 +25,15 @@ function App() {
       try {
         setIsLoading(true);
         const userData: UserInfo = (await getCurrentUser()).data;
-        const artistData = (await getUserTopArtists()).data;
+        const artistsData = (await getUserTopArtists()).data;
         const tracksData = (await getUserTopTracks()).data;
-        setTopArtists(artistData);
+        const playlistsData = (await getUserPlaylists()).data;
+        const followingArtistsNumber = (await getFollowingArtists()).data.artists.total;
+        setTopArtists(artistsData);
         setProfile(userData);
         setTopTracks(tracksData);
+        setUserPlaylists(playlistsData)
+        setFollowingNumber(followingArtistsNumber);
         setIsLoading(false);
       } catch (e) {
         console.error(e);
@@ -36,7 +42,7 @@ function App() {
 
     fetchUserData();
   }, []);
-
+  
   return (
     <>
       {!token ? (
@@ -56,6 +62,8 @@ function App() {
                       profile={profile as UserInfo}
                       topArtists={topArtists as TopArtists}
                       topTracks={topTracks as TopTracks}
+                      numberOfPlaylists={userPlaylists?.items.length as number}
+                      numbdrOfFollowing= {followingNumber as number}
                     />
                   }
                 />

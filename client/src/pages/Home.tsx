@@ -7,12 +7,12 @@ import { logout } from "../auth";
 interface HomeProps {
   profile : UserInfo,
   topTracks : TopTracks,
-  topArtists : TopArtists
+  topArtists : TopArtists,
+  numberOfPlaylists : number,
+  numbdrOfFollowing : number,
 }
 
 function Home(props : HomeProps) {
-
-
   return (
     <div>
         <div className="flex flex-col items-center gap-7">
@@ -27,15 +27,15 @@ function Home(props : HomeProps) {
           <div className="flex gap-5 uppercase  tracking-widest">
             <UserInfoItem
               title="followers"
-              number={props.profile.followers.total as number}
+              number={props.profile.followers.total}
             />
             <UserInfoItem
               title="following"
-              number={props.profile.followers.total as number}
+              number={props.numbdrOfFollowing}
             />
             <UserInfoItem
               title="playlists"
-              number={props.profile.followers.total as number}
+              number={props.numberOfPlaylists}
             />
           </div>
           <Button text="Logout" onClick={logout} />
