@@ -8,7 +8,7 @@ export interface UserInfo{
 }
 
 export interface TopArtists{
-  itmes : Array<Artist>,
+  items : Array<Artist>,
 }
 
 export interface TopTracks{

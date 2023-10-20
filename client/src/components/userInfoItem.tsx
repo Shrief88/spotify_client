@@ -9,7 +9,7 @@ const UserInfoItem = (props: UserInfoItemProps) => {
       <p className="text-green font-black text-lg">
         {props.number}
       </p>
-      <p className="text-gray text-xs">{props.title}</p>
+      <p className="text-gray text-sm tracking-wide">{props.title}</p>
     </div>
   );
 };

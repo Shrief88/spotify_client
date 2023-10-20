@@ -53,7 +53,7 @@ function App() {
           {isLoading ? (
             <Loader />
           ) : (
-            <div className="bg-black flex flex-col justify-center items-center flex-1">
+            <div className="bg-black flex flex-col flex-1">
               <Routes>
                 <Route
                   path="/"
