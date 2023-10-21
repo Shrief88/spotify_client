@@ -3,7 +3,8 @@ import UserInfoItem from "../components/userInfoItem";
 import Button from "../components/Button";
 import { logout } from "../auth";
 import ArtistDiv from "../components/ArtistDiv";
-import { Artist } from "../interfaces";
+import { Artist, Track } from "../interfaces";
+import TrackDiv from "../components/TrackDiv";
 
 interface HomeProps {
   profile: UserInfo;
@@ -14,9 +15,25 @@ interface HomeProps {
 }
 
 function Home(props: HomeProps) {
-  const topArtists = props.topArtists.items.slice(0,10).map((item : Artist) => (
-    <ArtistDiv name={item.name} url={item.images[0].url} />
-  ))
+  const topArtists = props.topArtists.items
+    .slice(0, 10)
+    .map((item: Artist) => (
+      <ArtistDiv name={item.name} url={item.images[0].url} />
+    ));
+
+  const topTracks = props.topTracks.items
+    .slice(0, 10)
+    .map((item: Track) => (
+      <TrackDiv
+        name={item.name}
+        url={item.album.images[0].url}
+        artists={item.artists}
+        duration={item.duration_ms}
+        album={item.album.name}
+      />
+    ));
+
+  
 
   return (
     <div className="flex flex-col items-center pt-12">
@@ -49,10 +66,11 @@ function Home(props: HomeProps) {
           {topArtists}
         </div>
         <div>
-          <div className="flex gap-3 items-center justify-around min-w-[600px]">
-            <p className="font-bold text-xl">Top Artists of All Time</p>
+          <div className="flex gap-3 items-center justify-between min-w-[600px] pb-12">
+            <p className="font-bold text-xl">Top Tracks of All Time</p>
             <Button text="See More" onClick={() => {}} />
           </div>
+          {topTracks}
         </div>
       </div>
     </div>

@@ -39,11 +39,12 @@ export interface Artist{
   }
 }
 
-interface Track{
+export interface Track{
   album :{
     name:string,
+    images : Array<Image>
   },
-  artists : Array<string>,
+  artists : Array<Artist>,
   duration_ms: number,
   external_urls : {
     spotify : string,
