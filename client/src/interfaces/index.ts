@@ -5,6 +5,8 @@ export interface UserInfo{
     total : number,
   },
   images: Array<Image>
+  following : number,
+  playlists : number,
 }
 
 export interface TopArtists{
