@@ -3,11 +3,17 @@ import { TopArtists } from "../interfaces";
 import { getUserTopArtists } from "../data";
 import { Artist } from "../interfaces";
 import Loader from "../components/Loader";
+import {TimeRange,timeRangesValues} from "../components/TimeRange";
+
 
 const Artists = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [topArtists, setTopArtists] = useState<TopArtists[]>([]);
-  const [activeRange, setActiveRange] = useState<number>(2);
+  const [activeRange, setActiveRange] = useState<keyof typeof timeRangesValues>("long");
+
+  const handleRangeToggle = (range: keyof typeof timeRangesValues) => {
+    setActiveRange(range);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,9 +30,7 @@ const Artists = () => {
     fetchData();
   }, []);
 
-  console.log(topArtists);
-
-  const topArtistsDiv = topArtists[activeRange]?.items.map((item: Artist) => {
+  const topArtistsDiv = topArtists[timeRangesValues[activeRange]]?.items.map((item: Artist) => {
     return (
       <div className="flex flex-col items-center gap-5 py-3">
         <img
@@ -38,7 +42,6 @@ const Artists = () => {
     );
   });
 
-
   return (
     <>
       {isLoading ? (
@@ -47,13 +50,8 @@ const Artists = () => {
         <div className="px-72 py-32">
           <div className="flex justify-between mb-5">
             <p className="font-black text-2xl">Top Artists</p>
-            <div className="flex gap-5">
-              <button  className={activeRange === 2 ? '' : 'active:underline'} onClick={()=>setActiveRange(2)}>All Time</button>
-              <button className={activeRange === 1 ? '' : 'active:underline'} onClick={()=>setActiveRange(1)}>Last 6 Months</button>
-              <button className={activeRange === 0 ? '' : 'active:underline'} onClick={()=>setActiveRange(0)}>Last 4 Weeks</button>
-            </div>
+            <TimeRange activeRange={activeRange} handleRangeToggle={handleRangeToggle} />
           </div>
-
           <div
             className="grid gap-5"
             style={{
