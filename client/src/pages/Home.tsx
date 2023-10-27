@@ -2,7 +2,6 @@ import { UserInfo, TopArtists, TopTracks } from "../interfaces";
 import UserInfoItem from "../components/userInfoItem";
 import Button from "../components/Button";
 import { logout } from "../auth";
-import ArtistDiv from "../components/ArtistDiv";
 import { Artist, Track } from "../interfaces";
 import TrackDiv from "../components/TrackDiv";
 import { useEffect, useState } from "react";
@@ -43,9 +42,18 @@ function Home() {
     fetchData();
   }, []);
 
-  const topArtistsDiv = topArtists?.items.map((item: Artist) => (
-    <ArtistDiv name={item.name} url={item.images[0].url} />
-  ));
+  const topArtistsDiv = topArtists?.items.map((item: Artist) => {
+    return (
+      <div className="flex items-center gap-5 py-3">
+        <img
+          src={item.images[0].url}
+          className=" object-cover h-14 rounded-full w-14"
+        />
+
+        <p>{item.name}</p>
+      </div>
+    );
+  });
 
   const topTracksDiv = topTracks?.items.map((item: Track) => (
     <TrackDiv
