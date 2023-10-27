@@ -56,7 +56,7 @@ export interface Track{
   popularity : number 
 }
 
-interface Playlist{
+export interface Playlist{
   description : string,
   external_urls : {
     spotify : string,
