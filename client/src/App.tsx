@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Artists from "./pages/Artists";
+import Tracks from "./pages/Tracks";
 
 function App() {
   const [token, setToken] = useState<string | null | undefined>(null);
@@ -25,6 +26,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/top_artists" element={<Artists />} />
+              <Route path="/top_tracks" element={<Tracks />} />
             </Routes>
           </div>
         </div>
