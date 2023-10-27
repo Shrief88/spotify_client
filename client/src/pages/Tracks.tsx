@@ -14,14 +14,18 @@ const Tracks = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      const artistsData = [
-        (await getUserTopTracks("short_term", 20)).data,
-        (await getUserTopTracks("medium_term", 20)).data,
-        (await getUserTopTracks("long_term", 20)).data,
-      ];
-      setTopTracks(artistsData);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const artistsData = [
+          (await getUserTopTracks("short_term", 20)).data,
+          (await getUserTopTracks("medium_term", 20)).data,
+          (await getUserTopTracks("long_term", 20)).data,
+        ];
+        setTopTracks(artistsData);
+        setIsLoading(false);
+      } catch (e) {
+        console.error(e);
+      }
     };
 
     fetchData();

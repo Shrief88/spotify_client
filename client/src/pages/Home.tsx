@@ -13,6 +13,7 @@ import {
   getUserTopTracks,
 } from "../data";
 import Loader from "../components/Loader";
+import { NavLink } from "react-router-dom";
 
 function Home() {
   const [user, setUser] = useState<null | UserInfo>(null);
@@ -47,7 +48,7 @@ function Home() {
       <div className="flex items-center gap-5 py-3">
         <img
           src={item.images[0].url}
-          className=" object-cover h-14 rounded-full w-14"
+          className=" object-cover h-14 rounded-full w-14 hover:opacity-50"
         />
 
         <p>{item.name}</p>
@@ -101,14 +102,18 @@ function Home() {
             <div>
               <div className="flex justify-between items-center min-w-[600px] pb-12">
                 <p className="font-bold text-xl">Top Artists of All Time</p>
-                <Button text="See More" onClick={() => {}} />
+                <NavLink to="/top_artists">
+                  <Button text="See More" onClick={() => {}} />
+                </NavLink>
               </div>
               {topArtistsDiv}
             </div>
             <div>
               <div className="flex gap-3 items-center justify-between min-w-[600px] pb-12">
                 <p className="font-bold text-xl">Top Tracks of All Time</p>
-                <Button text="See More" onClick={() => {}} />
+                <NavLink to="/top_tracks">
+                  <Button text="See More" onClick={() => {}} />
+                </NavLink>
               </div>
               {topTracksDiv}
             </div>

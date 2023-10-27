@@ -27,7 +27,7 @@ const TrackDiv = (props: TrackDivProps) => {
   return (
     <div className="flex items-center py-3 justify-between">
       <div className="flex gap-5 items-center">
-        <img src={props.url} className="w-14" />
+        <img src={props.url} className="w-14 hover:opacity-50" />
         <div className="flex flex-col items-start">
           <p>{props.name}</p>
           <div className="flex text-gray">
