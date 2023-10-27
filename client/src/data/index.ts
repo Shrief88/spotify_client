@@ -18,3 +18,5 @@ export const getUserTopTracks = (time_range: string, limit: number) =>
 export const getUserPlaylists = () => axios.get("/me/playlists?limit=50");
 
 export const getFollowingArtists = () => axios.get("/me/following?type=artist");
+
+export const getRecentlyPlayed = () => axios.get("/me/player/recently-played");

@@ -23,7 +23,7 @@ const Nav = () => {
         />
         <NavItem icon={AudiotrackIcon} title="Top Tracks" link="/top_tracks" />
         <NavItem icon={QueueMusicIcon} title="Playlists" link="/playlists" />
-        <NavItem icon={ReplayIcon} title="Recent" link="/top_tracks" />
+        <NavItem icon={ReplayIcon} title="Recent" link="/recent" />
       </div>
       <NavItem icon={GitHubIcon} title="GitHub" link="https://github.com/Shrief88" />
     </div>

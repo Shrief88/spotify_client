@@ -56,7 +56,7 @@ const Tracks = () => {
       ) : (
         <div className="px-72 py-32">
           <div className="flex justify-between mb-5">
-            <p className="font-black text-2xl">Top Artists</p>
+            <p className="font-black text-2xl">Top Tracks</p>
             <TimeRange
               activeRange={activeRange}
               handleRangeToggle={handleRangeToggle}
