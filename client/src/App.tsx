@@ -24,7 +24,7 @@ function App() {
       ) : (
         <div className="flex">
           <Nav />
-          <div className="bg-black flex flex-col flex-1">
+          <div className="bg-dark flex flex-col flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/top_artists" element={<Artists />} />

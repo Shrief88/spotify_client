@@ -25,7 +25,7 @@ const Playlists = () => {
 
   const userPlaylistsDiv = userPlaylists?.items.map((item: Playlist) => {
     return (
-      <div className="flex flex-col items-center gap-5 py-3">
+      <div key={item.id} className="flex flex-col items-center gap-5 py-3">
         <img src={item.images[0].url} className="object-cover h-56 w-56 hover:opacity-50"/>
         <div>
           <p>{item.name}</p>

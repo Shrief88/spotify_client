@@ -5,13 +5,21 @@ interface NavItemProps {
   icon: SvgIconComponent;
   title: string;
   link: string;
+  activeItem: string;
+  handleNavToggle: (navTitle: string) => void;
 }
 
 const NavItem = (props: NavItemProps) => {
+  const link =
+    props.link.split("/")[1] === "" ? "profile" : props.link.split("/")[1];
+  const active =
+    props.activeItem === link ? "border-l-green" : "border-l-darkBlack";
+
   return (
     <NavLink
-      className="flex flex-col justify-center items-center p-2 px-4 gap-1"
-      to={props.link}>
+      className={`${active} flex flex-col justify-center items-center p-2 px-4 gap-1 hover:border-l-green border-l-4 hover:bg-dark`}
+      to={props.link}
+      onClick={() => props.handleNavToggle(link)}>
       <props.icon></props.icon>
       <p className="text-lightGrey text-xs uppercase tracking-tighter">
         {props.title}

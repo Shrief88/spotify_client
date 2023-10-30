@@ -45,7 +45,7 @@ function Home() {
 
   const topArtistsDiv = topArtists?.items.map((item: Artist) => {
     return (
-      <div className="flex items-center gap-5 py-3">
+      <div key={item.id} className="flex items-center gap-5 py-3">
         <img
           src={item.images[0].url}
           className=" object-cover h-14 rounded-full w-14 hover:opacity-50"
