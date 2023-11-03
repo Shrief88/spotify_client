@@ -58,6 +58,7 @@ function Home() {
 
   const topTracksDiv = topTracks?.items.map((item: Track) => (
     <TrackDiv
+      key={item.id}
       name={item.name}
       url={item.album.images[0].url}
       artists={item.artists}

@@ -18,9 +18,9 @@ const formatTime = (time_ms: number) => {
 const TrackDiv = (props: TrackDivProps) => {
   const artists = props.artists.map((item: Artist, index, arr) => {
     if (arr.length - 1 === index) {
-      return <p>{item.name} .</p>;
+      return <p key={item.id}>{item.name} .</p>;
     } else {
-      return <p>{item.name},</p>;
+      return <p key={item.id}>{item.name},</p>;
     }
   });
 
