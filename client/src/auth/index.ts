@@ -9,7 +9,7 @@ const LOCALSTORAGE_VALUES = {
 };
 
 export const login = () => {
-  window.location.href = "api/login";
+  window.location.href = "https://spotify-client-shrief-essams-projects.vercel.app/login";
 };
 
 const hasTokenExpired = () => {
@@ -29,7 +29,7 @@ const getNewToken = async () => {
   }
   try {
     const { data } = await axios.get(
-      `api/refresh_token?refresh_token=${refreshToken}`,
+      `https://spotify-client-shrief-essams-projects.vercel.app/refresh_token?refresh_token=${refreshToken}`
     );
 
     console.log(data);
@@ -55,10 +55,16 @@ export const logout = () => {
   window.location.reload();
 };
 
+interface QueryParams {
+  accessToken: string | null;
+  refreshToken: string | null;
+  expireTime: string | null;
+}
+
 export const getAccessToken = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const queryParams = {
+  const queryParams: QueryParams = {
     accessToken: urlParams.get("access_token"),
     refreshToken: urlParams.get("refresh_token"),
     expireTime: urlParams.get("expires_in"),
@@ -77,7 +83,7 @@ export const getAccessToken = () => {
 
   if (queryParams.accessToken) {
     for (const property in queryParams) {
-      localStorage.setItem(property, queryParams[property]);
+        localStorage.setItem(property, queryParams[property]);
     }
     localStorage.setItem("timestamp", String(Date.now()));
     window.location.reload();
