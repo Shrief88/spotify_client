@@ -22,7 +22,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="bg-darkBlack min-w-fit bottom-0 grid  items-center sticky sm:h-screen sm:top-0 sm:justify-between sm:px-2">
+    <div className="bg-darkBlack min-w-fit bottom-0 grid items-center sticky sm:h-screen sm:top-0 sm:justify-between">
       <Link to="/" className="hidden sm:flex sm:justify-center">
         <img src={spotifyLogo} className="w-12" />
       </Link>
