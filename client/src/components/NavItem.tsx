@@ -18,11 +18,11 @@ const NavItem = (props: NavItemProps) => {
 
   return (
     <NavLink
-      className={`border-darkBlack ${activeMobile} sm:${active} flex flex-col justify-center items-center p-2 px-4 gap-1 hover:border-green border-t-4 sm:border-t-0 sm:border-r-4`}
+      className={`border-darkBlack ${activeMobile} sm:${active} flex flex-col justify-center items-center p-2  gap-1 hover:border-green border-t-4 sm:border-t-0 sm:border-r-4`}
       to={props.link}
       onClick={() => props.handleNavToggle(link)}>
       <props.icon></props.icon>
-      <p className="text-lightGrey text-xs uppercase tracking-tighter">
+      <p className="text-lightGrey text-[10px] uppercase tracking-tighter">
         {props.title}
       </p>
     </NavLink>

@@ -5,7 +5,7 @@ interface ButtonProps {
 
 const Button = (props : ButtonProps) =>{
   return(
-    <button className="border px-6 py-1 rounded-full tracking-widest text-sm hover:bg-white hover:text-dark" onClick={props.onClick}>
+    <button className="border px-4 py-1 rounded-full tracking-widest text-sm hover:bg-white hover:text-dark" onClick={props.onClick}>
       {props.text}     
     </button>
   )

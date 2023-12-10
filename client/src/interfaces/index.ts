@@ -9,17 +9,6 @@ export interface IUser{
   playlists : number,
 }
 
-export interface TopArtists{
-  items : Array<Artist>,
-}
-
-export interface TopTracks{
-  items : Array<Track>,
-}
-
-export interface UserPlaylists{
-  items : Array<Playlist>
-}
 
 interface Image {
   url : string,
@@ -27,7 +16,7 @@ interface Image {
   width : number
 }
 
-export interface Artist{
+export interface IArtist{
   popularity : number,
   name : string,
   images : Array<Image>,
@@ -41,7 +30,7 @@ export interface Artist{
   }
 }
 
-export interface Track{
+export interface ITrack{
   album :{
     name:string,
     images : Array<Image>
@@ -56,7 +45,7 @@ export interface Track{
   popularity : number 
 }
 
-export interface Playlist{
+export interface IPlaylist{
   description : string,
   external_urls : {
     spotify : string,
