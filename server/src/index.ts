@@ -36,7 +36,6 @@ app.get("/login", (req, res) => {
   );
 });
 
-
 app.get("/callback", async (req, res) => {
   const code = (req.query.code as string) ?? null;
   const state = req.query.state ?? null;

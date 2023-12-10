@@ -9,7 +9,7 @@ const LOCALSTORAGE_VALUES = {
 };
 
 export const login = () => {
-  window.location.href = "https://spotify-client-shrief-essams-projects.vercel.app/login";
+  window.location.href = "api/login";
 };
 
 const hasTokenExpired = () => {
@@ -29,7 +29,7 @@ const getNewToken = async () => {
   }
   try {
     const { data } = await axios.get(
-      `https://spotify-client-shrief-essams-projects.vercel.app/refresh_token?refresh_token=${refreshToken}`
+      `api/refresh_token?refresh_token=${refreshToken}`
     );
 
     console.log(data);
