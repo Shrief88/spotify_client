@@ -23,20 +23,22 @@ app.get("/login", (req, res) => {
   const stateKey = "spotify_auth_state";
 
   res.cookie(stateKey, state);
-
-  res.redirect(
-    "http://accounts.spotify.com/authorize?" +
-      queryString.stringify({
-        response_type: "code",
-        client_id: CLIENT_ID,
-        scope,
-        redirect_uri: REDIRECT_URI,
-        state,
-      }),
-  );
+  
+  res.send('sss');
+  // res.redirect(
+  //   "http://accounts.spotify.com/authorize?" +
+  //     queryString.stringify({
+  //       response_type: "code",
+  //       client_id: CLIENT_ID,
+  //       scope,
+  //       redirect_uri: REDIRECT_URI,
+  //       state,
+  //     }),
+  // );
 });
 
 app.get("/callback", async (req, res) => {
+  alert('ddd');
   const code = (req.query.code as string) ?? null;
   const state = req.query.state ?? null;
 
