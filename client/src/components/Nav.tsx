@@ -22,11 +22,11 @@ const Nav = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between py-8 items-center bg-darkBlack left-0 top-0 sticky h-screen min-w-fit">
-      <Link to="/">
+    <div className="bg-darkBlack min-w-fit bottom-0 grid  items-center sticky sm:h-screen sm:top-0 sm:justify-between ">
+      <Link to="/" className="hidden sm:flex sm:justify-center">
         <img src={spotifyLogo} className="w-12" />
       </Link>
-      <div>
+      <div className="grid grid-cols-5 sm:grid-cols-1">
         <NavItem
           activeItem={activeItem}
           icon={PersonIcon}
@@ -63,7 +63,9 @@ const Nav = () => {
           handleNavToggle={handleNavToggle}
         />
       </div>
-      <Link to="https://github.com/Shrief88">
+      <Link
+        to="https://github.com/Shrief88"
+        className="hidden sm:flex sm:justify-center">
         <img src={githubLogo} className="w-12" />
       </Link>
     </div>

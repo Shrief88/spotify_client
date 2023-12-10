@@ -12,12 +12,13 @@ interface NavItemProps {
 const NavItem = (props: NavItemProps) => {
   const link =
     props.link.split("/")[1] === "" ? "profile" : props.link.split("/")[1];
-  const active =
-    props.activeItem === link ? "border-l-green" : "border-l-darkBlack";
+  const activeMobile = props.activeItem === link ? "border-t-green" : "";
+
+  const active = props.activeItem === link ? "border-r-green" : "";
 
   return (
     <NavLink
-      className={`${active} flex flex-col justify-center items-center p-2 px-4 gap-1 hover:border-l-green border-l-4 hover:bg-dark`}
+      className={`border-darkBlack ${activeMobile} sm:${active} flex flex-col justify-center items-center p-2 px-4 gap-1 hover:border-green border-t-4 sm:border-t-0 sm:border-r-4`}
       to={props.link}
       onClick={() => props.handleNavToggle(link)}>
       <props.icon></props.icon>

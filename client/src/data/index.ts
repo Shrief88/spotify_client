@@ -1,5 +1,6 @@
 import { getAccessToken } from "../auth";
 import axios from "axios";
+import { IUser } from "../interfaces";
 
 const token = getAccessToken();
 
@@ -7,7 +8,7 @@ axios.defaults.baseURL = "https://api.spotify.com/v1";
 axios.defaults.headers["Authorization"] = `Bearer ${token}`;
 axios.defaults.headers["Content-type"] = "application/json";
 
-export const getCurrentUser = () => axios.get("/me");
+export const getCurrentUser = async (): Promise<IUser> => (await axios.get("/me")).data;
 
 export const getUserTopArtists = (time_range: string, limit: number) =>
   axios.get(`/me/top/artists?time_range=${time_range}&limit=${limit}`);

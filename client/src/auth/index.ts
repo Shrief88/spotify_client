@@ -8,6 +8,10 @@ const LOCALSTORAGE_VALUES = {
   timestamp: window.localStorage.getItem("timestamp"),
 };
 
+export const login = () => {
+  window.location.href = "api/login";
+};
+
 const hasTokenExpired = () => {
   const { accessToken, expireTime, timestamp } = LOCALSTORAGE_VALUES;
   if (!accessToken || !expireTime) {
@@ -24,23 +28,14 @@ const getNewToken = async () => {
     console.error("No refresh token available");
   }
   try {
-    const { data }= await axios.get(
-      `http://localhost:3000/refresh_token?refresh_token=${refreshToken}`,
+    const { data } = await axios.get(
+      `api/refresh_token?refresh_token=${refreshToken}`,
     );
-  
+
     console.log(data);
-    localStorage.setItem(
-      "accessToken",
-      data.access_token,
-    );
-    localStorage.setItem(
-      "expireTime",
-      data.expires_in,
-    );
-    localStorage.setItem(
-      "timestamp",
-      String(Date.now()),
-    );
+    localStorage.setItem("accessToken", data.access_token);
+    localStorage.setItem("expireTime", data.expires_in);
+    localStorage.setItem("timestamp", String(Date.now()));
 
     window.location.reload();
   } catch (e) {
@@ -54,35 +49,38 @@ export const logout = () => {
   localStorage.removeItem("expireTime");
   localStorage.removeItem("timestamp");
   const url = new URL(window.location.href);
-  url.search = ''; // Clear the search parameters
+  url.search = ""; // Clear the search parameters
   const newUrl = url.toString(); // Get the updated URL without parameters
-  window.history.replaceState({}, '', newUrl); // Replace the current URL without parameters
+  window.history.replaceState({}, "", newUrl); // Replace the current URL without parameters
   window.location.reload();
 };
 
-export const getAccessToken = ()=>{
+export const getAccessToken = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const queryParams = {
-    accessToken : urlParams.get('access_token'),
-    refreshToken : urlParams.get('refresh_token'),
-    expireTime : urlParams.get('expires_in'),
-  }
+    accessToken: urlParams.get("access_token"),
+    refreshToken: urlParams.get("refresh_token"),
+    expireTime: urlParams.get("expires_in"),
+  };
 
-  if(hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === "undefined"){
+  if (hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === "undefined") {
     getNewToken();
   }
 
-  if(LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.accessToken !== "undefined"){
+  if (
+    LOCALSTORAGE_VALUES.accessToken &&
+    LOCALSTORAGE_VALUES.accessToken !== "undefined"
+  ) {
     return LOCALSTORAGE_VALUES.accessToken;
   }
 
-  if(queryParams.accessToken){
-    for(const property in queryParams){
-      localStorage.setItem(property,queryParams[property]);
+  if (queryParams.accessToken) {
+    for (const property in queryParams) {
+      localStorage.setItem(property, queryParams[property]);
     }
-    localStorage.setItem('timestamp',String(Date.now()));
+    localStorage.setItem("timestamp", String(Date.now()));
     window.location.reload();
     return LOCALSTORAGE_VALUES.accessToken;
   }
-}
+};

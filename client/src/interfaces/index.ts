@@ -1,4 +1,4 @@
-export interface UserInfo{
+export interface IUser{
   country : string,
   display_name : string,
   followers:{
