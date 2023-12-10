@@ -1,19 +1,16 @@
-import express = require("express");
-import dotenv = require("dotenv");
-import * as queryString from "querystring";
-import randomstring = require("randomstring");
-import { Buffer } from "buffer";
+import express from "express";
+import queryString from "querystring";
+import morgan from "morgan";
+import env from "./utils/validateEnv";
 import axios from "axios";
-import cors = require("cors");
+import randomstring = require("randomstring");
 
-dotenv.config();
-const { PORT, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = process.env;
+const { PORT, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = env;
+const host = "localhost";
 
 const app = express();
-app.use(cors());
-
-const port = parseInt(PORT as string);
-const host = "localhost";
+app.use(express.json());
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
   res.send("testing....");
@@ -119,6 +116,6 @@ app.get("/refresh_token", async (req, res) => {
   }
 });
 
-app.listen(port, host, () => {
-  console.log(`Express app is listening on: http://${host}:${port}`);
+app.listen(PORT, host, () => {
+  console.log(`Express app is listening on: http://${host}:${PORT}`);
 });
