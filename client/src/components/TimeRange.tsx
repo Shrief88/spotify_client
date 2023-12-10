@@ -1,6 +1,6 @@
 interface TimeRangeProps {
-  activeRange : string,
-  handleRangeToggle : (range :keyof typeof timeRangesValues) => void,
+  activeRange: string;
+  handleRangeToggle: (range: keyof typeof timeRangesValues) => void;
 }
 
 const timeRangesValues = {
@@ -9,39 +9,24 @@ const timeRangesValues = {
   long: 2,
 };
 
-const TimeRange = (props : TimeRangeProps) => {
-   return (
-    <div className="flex gap-5">
-      <button
-        className={
-          props.activeRange === "long"
-            ? "underline text-white underline-offset-4"
-            : "text-gray"
-        }
-        onClick={() => props.handleRangeToggle("long")}>
-        All Time
-      </button>
-      <button
-        className={
-          props.activeRange === "medium"
-            ? "underline text-white underline-offset-4"
-            : "text-gray"
-        }
-        onClick={() => props.handleRangeToggle("medium")}>
-        Last 6 Months
-      </button>
-      <button
-        className={
-          props.activeRange === "short"
-            ? "underline text-white underline-offset-4"
-            : "text-gray"
-        }
-        onClick={() => props.handleRangeToggle("short")}>
-        Last 4 Weeks
-      </button>
-    </div>
+const TimeRange = (props: TimeRangeProps) => {
+  return (
+    <details className="dropdown">
+      <summary> Set time range</summary>
+      <ul className="shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-36 ">
+        <li>
+          <a onClick={() => props.handleRangeToggle("long")}>All Time</a>
+        </li>
+        <li>
+          <a onClick={() => props.handleRangeToggle("medium")}>Last 6 Months</a>
+        </li>
+        <li>
+          <a onClick={() => props.handleRangeToggle("short")}>Last 4 Weeks</a>
+        </li>
+      </ul>
+    </details>
   );
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export {TimeRange , timeRangesValues };
+export { TimeRange, timeRangesValues };

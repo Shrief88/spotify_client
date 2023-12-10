@@ -26,9 +26,10 @@ export default {
       darkBlack: "#040306",
       dark: "#181818",
       gray: "#9B9B9B",
-      white : "#FFFFFF",
-      black : "#000000",
+      white: "#FFFFFF",
+      black: "#000000",
     },
   },
-  plugins: [require("tailwindcss-animation-delay")],
+  // eslint-disable-next-line no-undef
+  plugins: [require("tailwindcss-animation-delay"), require("daisyui")],
 };

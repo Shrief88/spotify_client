@@ -34,7 +34,6 @@ function Home() {
       const artistsData = await getUserTopArtists("long_term", 10);
       const tracksData = await getUserTopTracks("long_term", 10);
 
-      setPlaylists(playlistsData);
       setTopArtists(artistsData);
       setTopTracks(tracksData);
       setUser(userData);
