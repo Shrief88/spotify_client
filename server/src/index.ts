@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 app.get("/login", (req, res) => {
   const state = randomstring.generate(16);
   const scope =
-    "user-read-private user-top-read user-read-email  playlist-read-private user-follow-read user-read-recently-played";
+    "user-follow-read user-top-read user-read-private user-read-email playlist-read-private  user-read-recently-played";
   const stateKey = "spotify_auth_state";
 
   res.cookie(stateKey, state);
