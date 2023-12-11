@@ -7,4 +7,5 @@ export default cleanEnv(process.env, {
   CLIENT_ID: str(),
   CLIENT_SECRET: str(),
   REDIRECT_URI: str(),
+  SCOPE: str(),
 });
