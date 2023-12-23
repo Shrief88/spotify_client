@@ -9,7 +9,7 @@ const LOCALSTORAGE_VALUES = {
 };
 
 export const login = () => {
-  window.location.href = "http://localhost:3000/login";
+  window.location.href = "https://spotify-client-8xcf.onrender.com/login";
 };
 
 const hasTokenExpired = () => {
@@ -83,7 +83,10 @@ export const getAccessToken = () => {
 
   if (queryParams.accessToken) {
     for (const property in queryParams) {
-      localStorage.setItem(property, queryParams[property]);
+      if (Object.prototype.hasOwnProperty.call(queryParams, property)) {
+        const propName = property as keyof QueryParams;
+        localStorage.setItem(property, queryParams[propName] || "");
+      }
     }
     localStorage.setItem("timestamp", String(Date.now()));
     window.location.reload();
