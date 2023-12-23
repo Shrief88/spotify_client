@@ -6,10 +6,7 @@ import axios from "axios";
 import randomstring = require("randomstring");
 import cors from "cors";
 
-const host =
-  env.NODE_ENV === "production"
-    ? env.HOST_PROD
-    : `http://localhost:${env.PORT}`;
+const host = env.NODE_ENV === "production" ? env.HOST_PROD : "localhost";
 
 const app = express();
 app.use(express.json());
@@ -132,5 +129,9 @@ app.get("/refresh_token", async (req, res) => {
 });
 
 app.listen(env.PORT, host, () => {
-  console.log(`Express app is listening on: ${host}`);
+  const hostUrl =
+    env.NODE_ENV === "production"
+      ? `https://${host}`
+      : `http://${host}:${env.PORT}`;
+  console.log(`Express app is listening on: ${hostUrl}`);
 });
