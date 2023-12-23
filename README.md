@@ -23,6 +23,7 @@ Built with a bunch of things, but to name a few:
 
 ## Deployment 
 The frontend has deployed on : https://main--dapper-centaur-a349e0.netlify.app/
+
 The Backend app has deployed on : https://spotify-client-8xcf.onrender.com/
 
 Please note that due to Spotify's restrictions on app in development mode, only users on the allowlist can access this app. If you're interested, please send me your email and username for consideration
