@@ -1,16 +1,19 @@
-import express from "express";
+import express, { type RequestHandler } from "express";
 import queryString from "querystring";
 import morgan from "morgan";
 import env from "./utils/validateEnv";
 import axios from "axios";
 import randomstring = require("randomstring");
+import cors from "cors";
 
-const { PORT, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = env;
 const host = "localhost";
 
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
+const corsOptions: RequestHandler = cors();
+app.options("*", corsOptions);
 
 app.get("/", (req, res) => {
   res.send("testing....");
@@ -27,9 +30,12 @@ app.get("/login", (req, res) => {
     "http://accounts.spotify.com/authorize?" +
       queryString.stringify({
         response_type: "code",
-        client_id: CLIENT_ID,
+        client_id: env.CLIENT_ID,
         scope,
-        redirect_uri: REDIRECT_URI,
+        redirect_uri:
+          env.NODE_ENV === "production"
+            ? env.REDIRECT_URI_PROD
+            : env.REDIRECT_URI_DEV,
         state,
       }),
   );
@@ -49,13 +55,18 @@ app.get("/callback", async (req, res) => {
         data: queryString.stringify({
           grant_type: "authorization_code",
           code,
-          redirect_uri: REDIRECT_URI,
+          redirect_uri:
+            env.NODE_ENV === "production"
+              ? env.REDIRECT_URI_PROD
+              : env.REDIRECT_URI_DEV,
         }),
         headers: {
           "Content-type": "application/x-www-form-urlencoded",
           Authorization:
             "Basic " +
-            Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64"),
+            Buffer.from(env.CLIENT_ID + ":" + env.CLIENT_SECRET).toString(
+              "base64",
+            ),
         },
       });
 
@@ -68,7 +79,7 @@ app.get("/callback", async (req, res) => {
           expires_in,
         });
 
-        res.redirect(`http://localhost:5173/?${queryParms}`);
+        res.redirect(`${env.CLIENT_URI}/?${queryParms}`);
       } else {
         res.redirect(
           `/?${queryString.stringify({
@@ -98,7 +109,9 @@ app.get("/refresh_token", async (req, res) => {
         "Content-type": "application/x-www-form-urlencoded",
         Authorization:
           "Basic " +
-          Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64"),
+          Buffer.from(env.CLIENT_ID + ":" + env.CLIENT_SECRET).toString(
+            "base64",
+          ),
       },
     });
     if (response.status === 200) {
@@ -115,6 +128,6 @@ app.get("/refresh_token", async (req, res) => {
   }
 });
 
-app.listen(PORT, host, () => {
-  console.log(`Express app is listening on: http://${host}:${PORT}`);
+app.listen(env.PORT, host, () => {
+  console.log(`Express app is listening on: http://${host}:${env.PORT}`);
 });

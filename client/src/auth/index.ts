@@ -9,7 +9,7 @@ const LOCALSTORAGE_VALUES = {
 };
 
 export const login = () => {
-  window.location.href = "api/login";
+  window.location.href = "http://localhost:3000/login";
 };
 
 const hasTokenExpired = () => {
@@ -83,7 +83,7 @@ export const getAccessToken = () => {
 
   if (queryParams.accessToken) {
     for (const property in queryParams) {
-        localStorage.setItem(property, queryParams[property]);
+      localStorage.setItem(property, queryParams[property]);
     }
     localStorage.setItem("timestamp", String(Date.now()));
     window.location.reload();
