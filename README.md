@@ -9,16 +9,25 @@ Built with a bunch of things, but to name a few:
 - [Reach Router](https://reach.tech/router)
 - [Tailwind](https://tailwindcss.com/)
 
-## Setup
+## Setup Backend
 
 1. [Register a Spotify App](https://developer.spotify.com/dashboard/applications) and add `http://localhost:3000/callback` as a Redirect URI in the app settings
-1. Create an `.env` file in the root of the project based on `.env.example`
-1. `nvm use`
-1. `yarn && yarn client:install`
-1. `yarn dev
+1. Create an `.env` file in the root of the project based on `server/env.example`
+1. `cd server && npm install`
+1. `npm run server`
 
+## Setup Frontend
 
-## Screenshots 
+1. `cd clinet && npm install`
+1. `npm run dev`
+
+## Deployment 
+The frontend has deployed on : https://main--dapper-centaur-a349e0.netlify.app/
+The Backend app has deployed on : https://spotify-client-8xcf.onrender.com/
+
+Please note that due to Spotify's restrictions on app in development mode, only users on the allowlist can access this app. If you're interested, please send me your email and username for consideration
+
+## Screenshots
 ![Screenshot](screenshots/home.png)
 ![Screenshot](screenshots/playlist.png)
 ![Screenshot](screenshots/top_artists.png)
