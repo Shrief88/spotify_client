@@ -13,6 +13,7 @@ import {
 } from "../data";
 import Loader from "../components/Loader";
 import { NavLink } from "react-router-dom";
+import defaultAvate from "../icons/avatar.jpg";
 
 function Home() {
   const [user, setUser] = useState<null | IUser>(null);
@@ -91,7 +92,7 @@ function Home() {
         <div className="flex flex-col items-center pt-12">
           <div className="flex flex-col items-center gap-7">
             <img
-              src={user?.images[1].url}
+              src= {user?.images[0].url || defaultAvate}
               width="150"
               className="rounded-full"
             />
