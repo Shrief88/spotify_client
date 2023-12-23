@@ -8,8 +8,9 @@ const LOCALSTORAGE_VALUES = {
   timestamp: window.localStorage.getItem("timestamp"),
 };
 
+
 export const login = () => {
-  window.location.href = `${process.env.SERVER}/login`;
+  window.location.href = `${process.env.SERVER as string}/login`;
 };
 
 const hasTokenExpired = () => {
