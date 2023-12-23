@@ -9,7 +9,7 @@ const LOCALSTORAGE_VALUES = {
 };
 
 export const login = () => {
-  window.location.href = "http://localhost:3000/login";
+  window.location.href = `${process.env.SERVER}/login`;
 };
 
 const hasTokenExpired = () => {
