@@ -11,4 +11,5 @@ export default cleanEnv(process.env, {
   REDIRECT_URI_PROD: str(),
   SCOPE: str(),
   NODE_ENV: str({ choices: ["development", "test", "production"] }),
+  HOST_PROD: str(),
 });
