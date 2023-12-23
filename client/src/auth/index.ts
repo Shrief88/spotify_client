@@ -10,7 +10,7 @@ const LOCALSTORAGE_VALUES = {
 
 
 export const login = () => {
-  window.location.href = `${process.env.SERVER as string}/login`;
+  window.location.href = `${process.env.REACT_APP_SERVER as string}/login`;
 };
 
 const hasTokenExpired = () => {
