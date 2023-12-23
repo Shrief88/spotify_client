@@ -8,9 +8,8 @@ const LOCALSTORAGE_VALUES = {
   timestamp: window.localStorage.getItem("timestamp"),
 };
 
-
 export const login = () => {
-  window.location.href = `${process.env.REACT_APP_SERVER as string}/login`;
+  window.location.href = "https://spotify-client-8xcf.onrender.com/login";
 };
 
 const hasTokenExpired = () => {
